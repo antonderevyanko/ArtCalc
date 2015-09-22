@@ -2,4 +2,7 @@
     <string name="app_name">ArtCalc</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="error_wrong_rough" formatted="false">Rough value cannot be greater then %d, but %d accepted</string>
+    <string name="error_wrong_precise" formatted="false">Rough value cannot be greater then %d, but %d accepted</string>
+    <string name="error_read_data">Error reading data</string>
 </resources>
