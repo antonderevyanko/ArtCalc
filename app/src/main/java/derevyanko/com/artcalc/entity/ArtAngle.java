@@ -38,4 +38,10 @@ public final class ArtAngle {
     public void setValuePrecise(int valuePrecise) {
         this.valuePrecise = valuePrecise;
     }
+
+    @Override
+    public String toString() {
+        return "Value rough= " + valueRough +
+                ", value precise= " + valuePrecise;
+    }
 }

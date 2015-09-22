@@ -55,11 +55,11 @@ public final class AngleInputView extends RelativeLayout {
             int dataPrecise = 0;
 
             if (!rough.getText().toString().isEmpty()) {
-                dataRough = Integer.getInteger(rough.getText().toString());
+                dataRough = Integer.decode(rough.getText().toString());
             }
 
             if (!precise.getText().toString().isEmpty()) {
-                dataPrecise = Integer.getInteger(precise.getText().toString());
+                dataPrecise = Integer.decode(precise.getText().toString());
             }
 
             if (Math.abs(dataRough) > MAX_ROUGH) {
