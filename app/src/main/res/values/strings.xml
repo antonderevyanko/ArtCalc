@@ -8,10 +8,11 @@
     <string name="error_read_data">Error reading data</string>
     <string name="calculate">Calculate</string>
     <string name="distance_to_target">Distance to target</string>
-    <string name="results">Results</string>
+    <string name="results">Results\n</string>
     <string name="main_direction_angle">"Main direction angle "</string>
     <string name="target_azimuth_angle">"Target azimuth angle "</string>
     <string name="weapon_rotation_angle">"Weapon rotation angle "</string>
     <string name="to_right">"To right "</string>
     <string name="to_left">"To left "</string>
+    <string name="level">"Level "</string>
 </resources>

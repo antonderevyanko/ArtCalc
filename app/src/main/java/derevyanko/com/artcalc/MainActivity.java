@@ -4,21 +4,29 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import derevyanko.com.artcalc.entity.ArtAngle;
+import derevyanko.com.artcalc.entity.DistanceTable;
 import derevyanko.com.artcalc.exception.WrongFormatException;
 import derevyanko.com.artcalc.view.AngleInputView;
 
+import static android.widget.Toast.LENGTH_SHORT;
+import static android.widget.Toast.makeText;
+
 public class MainActivity extends AppCompatActivity {
 
+    private static final int VERT_CORRECTION = 3000;
     @Bind(R.id.angleMainDirection)
     AngleInputView inputMainDirection;
     @Bind(R.id.angleTargetAzimuth)
     AngleInputView inputTargetAzimuth;
+    @Bind(R.id.edtDistance)
+    EditText inputDistance;
     @Bind(R.id.tvResults)
     TextView textResult;
 
@@ -27,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        inputMainDirection.setTitle("Main direction angle");
-        inputTargetAzimuth.setTitle("Target azimuth angle");
+        inputMainDirection.setTitle(getResources().getString(R.string.main_direction_angle));
+        inputTargetAzimuth.setTitle(getResources().getString(R.string.target_azimuth_angle));
     }
 
     @SuppressWarnings("unused")
@@ -39,9 +47,8 @@ public class MainActivity extends AppCompatActivity {
             ArtAngle angleTargetAzimuth = inputTargetAzimuth.getAngleData();
 
             // todo re-check minus operation
-            ArtAngle angleWeaponRotation = new ArtAngle(
-                    angleTargetAzimuth.getValueRough() - angleMainDirection.getValueRough(),
-                    angleTargetAzimuth.getValuePrecise() - angleMainDirection.getValuePrecise());
+            int minusOperation = angleTargetAzimuth.getAsInt() - angleMainDirection.getAsInt();
+            ArtAngle angleWeaponRotation = new ArtAngle(minusOperation);
 
             StringBuilder stringBuilder = new StringBuilder(getResources().getString(R.string.results));
             stringBuilder.append("\n");
@@ -59,9 +66,25 @@ public class MainActivity extends AppCompatActivity {
             }
             stringBuilder.append("\n");
 
+            DistanceTable distanceTable = new DistanceTable(this);
+            int distance;
+            try {
+                distance = Integer.decode(inputDistance.getText().toString());
+            } catch (NumberFormatException e) {
+                makeText(this, "Wrong distance input", LENGTH_SHORT).show();
+                distance = 0;
+            }
+
+            ArtAngle angleDistance = distanceTable.getProperAngle(distance);
+            ArtAngle angleWithCorrection = new ArtAngle(angleDistance.getAsInt() + VERT_CORRECTION);
+            stringBuilder
+                    .append(getString(R.string.level))
+                    .append(angleWithCorrection.getOnlyNumbers())
+                    .append("\n");
+
             textResult.setText(stringBuilder.toString());
         } catch (WrongFormatException exception) {
-            Toast.makeText(this, exception.getErrorCause(), Toast.LENGTH_SHORT).show();
+            makeText(this, exception.getErrorCause(), Toast.LENGTH_LONG).show();
         }
     }
 

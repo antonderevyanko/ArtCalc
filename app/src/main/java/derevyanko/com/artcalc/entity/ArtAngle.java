@@ -9,34 +9,47 @@ public final class ArtAngle {
 
     private int valueRough;
     private int valuePrecise;
+    private boolean isNegative;
+
 
     public ArtAngle(int valueRough, int valuePrecise) throws WrongFormatException{
         this.valueRough = valueRough;
         this.valuePrecise = valuePrecise;
+
+        isNegative = valueRough < 0;
+    }
+
+    public ArtAngle(int intValue) {
+        valueRough = Math.abs(intValue / 100);
+        valuePrecise = Math.abs(intValue - intValue / 100 * 100);
+        isNegative = intValue < 0;
     }
 
     public boolean isGreaterZero() {
-        if (getValueRough() == 0) {
-            return getValuePrecise() > 0;
+        return isNegative;
+    }
+
+    public int getAsInt() {
+        if (isNegative) {
+            return - valueRough * 100 + valuePrecise;
         } else {
-            return getValueRough() > 0;
+            return valueRough * 100 + valuePrecise;
         }
+    }
+
+    public void setFromInt(int input) {
+        valueRough = input / 100;
+        valuePrecise = input - valueRough * 100;
+
+        isNegative = input < 0;
     }
 
     public int getValueRough() {
         return valueRough;
     }
 
-    public void setValueRough(int valueRough) {
-        this.valueRough = valueRough;
-    }
-
     public int getValuePrecise() {
         return valuePrecise;
-    }
-
-    public void setValuePrecise(int valuePrecise) {
-        this.valuePrecise = valuePrecise;
     }
 
     public String getOnlyNumbers() {
