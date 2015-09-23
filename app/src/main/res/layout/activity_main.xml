@@ -8,6 +8,7 @@
     <TextView
         android:id="@+id/tvResults"
         android:text="@string/results"
+        android:textSize="20sp"
         android:layout_width="match_parent"
         android:layout_height="100dp"/>
     <View

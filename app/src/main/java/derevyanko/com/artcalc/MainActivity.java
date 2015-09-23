@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         inputMainDirection.setTitle(getResources().getString(R.string.main_direction_angle));
+        inputMainDirection.setViewToFocus(inputTargetAzimuth);
         inputTargetAzimuth.setTitle(getResources().getString(R.string.target_azimuth_angle));
     }
 

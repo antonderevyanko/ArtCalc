@@ -2,6 +2,9 @@ package derevyanko.com.artcalc.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,6 +28,8 @@ public final class AngleInputView extends RelativeLayout {
     @Bind(R.id.inputPrecise)
     EditText precise;
 
+    private View viewToFocus;
+
     public AngleInputView(Context context) {
         super(context);
         initView(context);
@@ -47,6 +52,10 @@ public final class AngleInputView extends RelativeLayout {
     public void setValue(ArtAngle artAngle) {
         rough.setText(String.valueOf(artAngle.getValueRough()));
         precise.setText(String.valueOf(artAngle.getValuePrecise()));
+    }
+
+    public void setViewToFocus(View view) {
+        this.viewToFocus = view;
     }
 
     public ArtAngle getAngleData() throws WrongFormatException {
@@ -81,5 +90,28 @@ public final class AngleInputView extends RelativeLayout {
     private void initView(Context context) {
         inflate(context, R.layout.view_angle_input, this);
         ButterKnife.bind(this);
+        rough.setOnEditorActionListener(actionListener);
+        precise.setOnEditorActionListener(secondaryListener);
     }
+
+    private final TextView.OnEditorActionListener actionListener = new TextView.OnEditorActionListener() {
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                precise.requestFocus();
+                return true;
+            }
+            return false;
+        }
+    };
+
+    private final TextView.OnEditorActionListener secondaryListener = new TextView.OnEditorActionListener() {
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            if (actionId == EditorInfo.IME_ACTION_NEXT && viewToFocus != null) {
+                viewToFocus.requestFocus();
+                return true;
+            }
+            return false;
+        }
+    };
+
 }
