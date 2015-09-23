@@ -39,6 +39,10 @@ public final class ArtAngle {
         this.valuePrecise = valuePrecise;
     }
 
+    public String getOnlyNumbers() {
+        return String.valueOf(valueRough) + "-" + String.valueOf(valuePrecise);
+    }
+
     @Override
     public String toString() {
         return "Value rough= " + valueRough +

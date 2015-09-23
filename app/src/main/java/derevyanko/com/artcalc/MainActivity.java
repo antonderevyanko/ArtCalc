@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        inputMainDirection.setTitle("Main direction angle");
+        inputTargetAzimuth.setTitle("Target azimuth angle");
     }
 
     @SuppressWarnings("unused")
@@ -36,22 +38,27 @@ public class MainActivity extends AppCompatActivity {
             ArtAngle angleMainDirection = inputMainDirection.getAngleData();
             ArtAngle angleTargetAzimuth = inputTargetAzimuth.getAngleData();
 
+            // todo re-check minus operation
             ArtAngle angleWeaponRotation = new ArtAngle(
                     angleTargetAzimuth.getValueRough() - angleMainDirection.getValueRough(),
                     angleTargetAzimuth.getValuePrecise() - angleMainDirection.getValuePrecise());
 
             StringBuilder stringBuilder = new StringBuilder(getResources().getString(R.string.results));
-            stringBuilder
-                    .append("\n")
-                    .append(getString(R.string.main_direction_angle))
-                    .append(angleMainDirection.toString())
-                    .append("\n")
-                    .append(getString(R.string.target_azimuth_angle))
-                    .append(angleTargetAzimuth.toString())
-                    .append("\n")
-                    .append(getString(R.string.weapon_rotation_angle))
-                    .append(angleWeaponRotation.toString())
-                    .append("\n");
+            stringBuilder.append("\n");
+
+            if (angleMainDirection.isGreaterZero()) {
+                stringBuilder
+                        .append(getString(R.string.to_right))
+                        .append(angleWeaponRotation.getOnlyNumbers())
+                        .append("\n");
+            } else {
+                stringBuilder
+                        .append(getString(R.string.to_left))
+                        .append(angleWeaponRotation.getOnlyNumbers())
+                        .append("\n");
+            }
+            stringBuilder.append("\n");
+
             textResult.setText(stringBuilder.toString());
         } catch (WrongFormatException exception) {
             Toast.makeText(this, exception.getErrorCause(), Toast.LENGTH_SHORT).show();
