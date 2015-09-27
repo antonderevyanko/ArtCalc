@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             StringBuilder stringBuilder = new StringBuilder(getResources().getString(R.string.results));
             stringBuilder.append("\n");
 
-            if (angleMainDirection.isGreaterZero()) {
+            if (angleWeaponRotation.isGreaterZero()) {
                 stringBuilder
                         .append(getString(R.string.to_right))
                         .append(angleWeaponRotation.getOnlyNumbers())

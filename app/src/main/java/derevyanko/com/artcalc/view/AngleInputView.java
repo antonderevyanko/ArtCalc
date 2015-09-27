@@ -69,11 +69,11 @@ public final class AngleInputView extends RelativeLayout {
             int dataPrecise = 0;
 
             if (!rough.getText().toString().isEmpty()) {
-                dataRough = Integer.decode(rough.getText().toString());
+                dataRough = decodeInput(rough.getText().toString());
             }
 
             if (!precise.getText().toString().isEmpty()) {
-                dataPrecise = Integer.decode(precise.getText().toString());
+                dataPrecise = decodeInput(precise.getText().toString());
             }
 
             if (Math.abs(dataRough) > MAX_ROUGH) {
@@ -87,8 +87,19 @@ public final class AngleInputView extends RelativeLayout {
             }
 
             return new ArtAngle(dataRough, dataPrecise);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             throw new WrongFormatException(getContext().getString(R.string.error_read_data));
+        }
+    }
+
+    private Integer decodeInput(String string) {
+        if (string.substring(0, 1).equals("0")) {
+            return Integer.decode(string.substring(1, 2));
+        } else if (string.equals("00")) {
+            return 0;
+        } else {
+            return Integer.decode(string);
+
         }
     }
 
@@ -120,7 +131,7 @@ public final class AngleInputView extends RelativeLayout {
         }
     };
 
-    private class GenericTextWatcher implements TextWatcher{
+    private class GenericTextWatcher implements TextWatcher {
 
         private View view;
 
@@ -129,6 +140,7 @@ public final class AngleInputView extends RelativeLayout {
         }
 
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
         public void afterTextChanged(Editable editable) {
