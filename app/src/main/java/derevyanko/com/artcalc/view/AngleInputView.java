@@ -1,6 +1,8 @@
 package derevyanko.com.artcalc.view;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,6 +15,8 @@ import butterknife.ButterKnife;
 import derevyanko.com.artcalc.R;
 import derevyanko.com.artcalc.entity.ArtAngle;
 import derevyanko.com.artcalc.exception.WrongFormatException;
+
+import static java.lang.String.valueOf;
 
 /**
  * Created by anton on 9/22/15.
@@ -50,12 +54,13 @@ public final class AngleInputView extends RelativeLayout {
     }
 
     public void setValue(ArtAngle artAngle) {
-        rough.setText(String.valueOf(artAngle.getValueRough()));
-        precise.setText(String.valueOf(artAngle.getValuePrecise()));
+        rough.setText(valueOf(artAngle.getValueRough()));
+        precise.setText(valueOf(artAngle.getValuePrecise()));
     }
 
     public void setViewToFocus(View view) {
         this.viewToFocus = view;
+        precise.addTextChangedListener(new GenericTextWatcher(viewToFocus));
     }
 
     public ArtAngle getAngleData() throws WrongFormatException {
@@ -92,6 +97,7 @@ public final class AngleInputView extends RelativeLayout {
         ButterKnife.bind(this);
         rough.setOnEditorActionListener(actionListener);
         precise.setOnEditorActionListener(secondaryListener);
+        rough.addTextChangedListener(new GenericTextWatcher(precise));
     }
 
     private final TextView.OnEditorActionListener actionListener = new TextView.OnEditorActionListener() {
@@ -113,5 +119,23 @@ public final class AngleInputView extends RelativeLayout {
             return false;
         }
     };
+
+    private class GenericTextWatcher implements TextWatcher{
+
+        private View view;
+
+        private GenericTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+        public void afterTextChanged(Editable editable) {
+            if (editable.length() == 2) {
+                view.requestFocus();
+            }
+        }
+    }
 
 }

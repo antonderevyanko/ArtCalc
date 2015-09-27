@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         inputMainDirection.setTitle(getResources().getString(R.string.main_direction_angle));
         inputMainDirection.setViewToFocus(inputTargetAzimuth);
         inputTargetAzimuth.setTitle(getResources().getString(R.string.target_azimuth_angle));
+        inputTargetAzimuth.setViewToFocus(inputDistance);
     }
 
     @SuppressWarnings("unused")
@@ -65,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                         .append(angleWeaponRotation.getOnlyNumbers())
                         .append("\n");
             }
-            stringBuilder.append("\n");
 
             DistanceTable distanceTable = new DistanceTable(this);
             int distance;
@@ -80,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
             ArtAngle angleWithCorrection = new ArtAngle(angleDistance.getAsInt() + VERT_CORRECTION);
             stringBuilder
                     .append(getString(R.string.level))
-                    .append(angleWithCorrection.getOnlyNumbers())
-                    .append("\n");
+                    .append(angleWithCorrection.getOnlyNumbers());
 
             textResult.setText(stringBuilder.toString());
         } catch (WrongFormatException exception) {

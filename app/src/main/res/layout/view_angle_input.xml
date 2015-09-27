@@ -16,7 +16,7 @@
         android:inputType="numberDecimal|numberSigned"
         android:singleLine="true"
         android:lines="1"
-        android:maxLength="3"
+        android:maxLength="2"
         android:layout_width="80dp"
         android:layout_height="wrap_content"/>
     <TextView
@@ -34,7 +34,7 @@
         android:layout_toRightOf="@+id/tvDash"
         android:singleLine="true"
         android:lines="1"
-        android:maxLength="3"
+        android:maxLength="2"
         android:inputType="numberDecimal|numberSigned"
         android:layout_width="80dp"
         android:layout_height="wrap_content"/>
