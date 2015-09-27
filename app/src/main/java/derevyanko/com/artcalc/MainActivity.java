@@ -2,8 +2,10 @@ package derevyanko.com.artcalc;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +41,16 @@ public class MainActivity extends AppCompatActivity {
         inputMainDirection.setViewToFocus(inputTargetAzimuth);
         inputTargetAzimuth.setTitle(getResources().getString(R.string.target_azimuth_angle));
         inputTargetAzimuth.setViewToFocus(inputDistance);
+        inputDistance.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    onCalculate();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @SuppressWarnings("unused")
