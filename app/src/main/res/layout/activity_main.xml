@@ -35,6 +35,7 @@
         android:id="@+id/edtDistance"
         android:singleLine="true"
         android:lines="1"
+        android:selectAllOnFocus="true"
         android:maxLength="10"
         android:imeOptions="actionDone"
         android:inputType="numberDecimal"
