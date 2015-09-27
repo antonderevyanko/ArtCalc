@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 distance = Integer.decode(inputDistance.getText().toString());
             } catch (NumberFormatException e) {
-                makeText(this, "Wrong distance input", LENGTH_SHORT).show();
+                makeText(this, R.string.error_wrong_distance, LENGTH_SHORT).show();
                 distance = 0;
             }
 
