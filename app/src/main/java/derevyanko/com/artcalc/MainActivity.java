@@ -23,6 +23,8 @@ import static android.widget.Toast.makeText;
 public class MainActivity extends AppCompatActivity {
 
     private static final int VERT_CORRECTION = 3000;
+    private static final int HALF_ANGLE = 3000;
+    private static final int FULL_ANGLE = 6000;
     @Bind(R.id.angleMainDirection)
     AngleInputView inputMainDirection;
     @Bind(R.id.angleTargetAzimuth)
@@ -62,6 +64,15 @@ public class MainActivity extends AppCompatActivity {
 
             // todo re-check minus operation
             int minusOperation = angleTargetAzimuth.getAsInt() - angleMainDirection.getAsInt();
+
+            // потому что через 0 ближе доворачивать
+            // получается что если угол доворота больше 30-00 то надо из него вычитать 60-00
+            if (minusOperation > 0 && minusOperation > HALF_ANGLE) {
+                minusOperation = minusOperation - FULL_ANGLE;
+            } else if (minusOperation < 0 && minusOperation < -HALF_ANGLE) {
+                minusOperation = minusOperation + FULL_ANGLE;
+            }
+
             ArtAngle angleWeaponRotation = new ArtAngle(minusOperation);
 
             StringBuilder stringBuilder = new StringBuilder(getResources().getString(R.string.results));

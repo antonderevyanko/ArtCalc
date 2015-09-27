@@ -58,7 +58,7 @@ public final class DistanceTable {
         // all formula
         // x-x0/x1-x0 = y-y0/y1-y0
 
-        // x-x0/x1-x0
+        // вычисляем срежнее значение
         float x = (float) (distance - firstPoint.distance) / (secondPoint.distance - firstPoint.distance);
         int intResult = (int) (firstPoint.getArtAngle().getAsInt() + x *
                         (secondPoint.getArtAngle().getAsInt() - firstPoint.getArtAngle().getAsInt()));
