@@ -9,8 +9,8 @@
     <string name="calculate">Вычислить</string>
     <string name="distance_to_target">Расстояние до цели</string>
     <string name="results">Результат\n</string>
-    <string name="main_direction_angle">"Угол основной цели "</string>
-    <string name="target_azimuth_angle">"Изимут цели "</string>
+    <string name="main_direction_angle">"Основное направление "</string>
+    <string name="target_azimuth_angle">"Азимут цели "</string>
     <string name="weapon_rotation_angle">"Угол орудия "</string>
     <string name="to_right">"Вправо "</string>
     <string name="to_left">"Влево "</string>

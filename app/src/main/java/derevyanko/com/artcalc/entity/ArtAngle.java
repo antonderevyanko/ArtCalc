@@ -26,7 +26,7 @@ public final class ArtAngle {
     }
 
     public boolean isGreaterZero() {
-        return isNegative;
+        return !isNegative;
     }
 
     public int getAsInt() {

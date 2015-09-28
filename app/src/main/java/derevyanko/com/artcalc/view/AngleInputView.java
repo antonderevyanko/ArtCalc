@@ -99,7 +99,6 @@ public final class AngleInputView extends RelativeLayout {
             return 0;
         } else {
             return Integer.decode(string);
-
         }
     }
 
